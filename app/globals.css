@@ -25,13 +25,14 @@
 h1 {
   font-family: "Bangers", sans-serif;
   text-transform: uppercase;
-  color: #111;
 }
 
 h2,
 h3 {
   font-family: "Handlee", cursive;
-  color: #333;
+}
+span {
+  font-family: "Comic_Neue", cursive;
 }
 
 body {
@@ -40,5 +41,4 @@ body {
   background-size: 6px 6px;
   font-family: "Comic Neue", cursive;
   line-height: 1.6;
-  color: #222;
 }
