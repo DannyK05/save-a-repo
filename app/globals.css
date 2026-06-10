@@ -22,7 +22,8 @@
   font-weight: "bold";
 }
 
-h1 {
+h1,
+h4 {
   font-family: "Bangers", sans-serif;
   text-transform: uppercase;
 }
