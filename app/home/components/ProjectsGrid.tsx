@@ -1,12 +1,16 @@
 "use client";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { Dialog } from "@/components/ui/Dialog";
 import { ProjectCard } from "./ProjectCard";
 import { projectRanks, projects } from "../data";
 import type { TProjectRankLevel } from "../types";
 
 export function ProjectsGrid() {
   const [activeRanks, setActiveRank] = useState<TProjectRankLevel>("All");
+  const [isVisible, setIsVisible] = useState(false);
+  const handleIsVisible = () => setIsVisible((prev) => !prev);
+
   return (
     <section className="w-full flex flex-col items-center space-y-2 px-4">
       <div className="flex items-center gap-3 flex-wrap">
@@ -23,6 +27,7 @@ export function ProjectsGrid() {
           </div>
         ))}
       </div>
+
       <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-8">
         {projects.map(
           (
@@ -30,6 +35,7 @@ export function ProjectsGrid() {
             index,
           ) => (
             <ProjectCard
+              handleDetails={handleIsVisible}
               className={index === projects.length - 1 ? "lg:items-center" : ""}
               key={index}
               index={index}
@@ -44,6 +50,10 @@ export function ProjectsGrid() {
           ),
         )}
       </div>
+
+      <Dialog isVisible={isVisible} toggleVisibility={handleIsVisible}>
+        <h1>Broooo</h1>
+      </Dialog>
     </section>
   );
 }

@@ -2,7 +2,7 @@ import { ProjectsGrid } from "@/app/home/components/ProjectsGrid";
 
 export default function Home() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <div className="h-80 flex items-center justify-center border-b-4 shadow-sm">
         <h1 className="text-8xl">Save A Repo Today</h1>
       </div>

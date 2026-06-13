@@ -12,6 +12,7 @@ type ProjectCardProps = {
   topics: string[];
   license: string;
   index: number;
+  handleDetails: () => void;
 };
 export function ProjectCard({
   name,
@@ -23,11 +24,13 @@ export function ProjectCard({
   topics,
   license,
   index,
+  handleDetails,
 }: ProjectCardProps) {
   return (
     <div
+      onClick={handleDetails}
       className={twMerge(
-        "flex flex-col items-center space-y-1 py-2 px-3 border border-black border-2 cursor-pointer bg-[#EEC046] text-black active:-translate-x-4 lg:hover:ml-1 lg:items-start",
+        "flex flex-col items-center space-y-1 py-2 px-3 border border-black border-2 cursor-pointer bg-[#EEC046] text-black transition-all duration-300 active:-translate-x-4 lg:hover:ml-1 lg:items-start",
         (index + 1) % 5 == 1 && "lg:col-[2/4] z-10",
         (index + 1) % 5 == 2 && "lg:col-[3/5] z-20",
         (index + 1) % 5 == 3 && "lg:col-[4/6] z-30",
