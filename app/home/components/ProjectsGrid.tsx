@@ -3,13 +3,16 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Dialog } from "@/components/ui/Dialog";
 import { ProjectCard } from "./ProjectCard";
-import { projectRanks, projects } from "../data";
+import { useFetchRepo } from "@/lib/hooks/useFetchRepo";
+import { REPO_PER_PAGE } from "@/lib/constants";
+import { projectRanks } from "../data";
 import type { TProjectRankLevel } from "../types";
 
 export function ProjectsGrid() {
   const [activeRanks, setActiveRank] = useState<TProjectRankLevel>("All");
   const [isVisible, setIsVisible] = useState(false);
   const handleIsVisible = () => setIsVisible((prev) => !prev);
+  const { data: projects } = useFetchRepo({ page: 1 });
 
   return (
     <section className="w-full flex flex-col items-center space-y-2 px-4">
@@ -29,23 +32,23 @@ export function ProjectsGrid() {
       </div>
 
       <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-8">
-        {projects.map(
+        {projects?.items.map(
           (
-            { name, description, language, stars, forks, topics, license },
+            { id, name, description, language, stars, forks, topics, license },
             index,
           ) => (
             <ProjectCard
               handleDetails={handleIsVisible}
-              className={index === projects.length - 1 ? "lg:items-center" : ""}
-              key={index}
+              className={index === REPO_PER_PAGE - 1 ? "lg:items-center" : ""}
+              key={id}
               index={index}
               name={name}
-              description={description}
-              language={language}
+              description={description ?? ""}
+              language={language ?? ""}
               stars={stars}
               forks={forks}
               topics={topics}
-              license={license}
+              license={license?.name ?? ""}
             />
           ),
         )}

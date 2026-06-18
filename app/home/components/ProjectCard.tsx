@@ -1,6 +1,6 @@
+import { REPO_PER_PAGE } from "@/lib/constants";
 import Image from "next/image";
 import { twMerge } from "tailwind-merge";
-import { projects } from "../data";
 
 type ProjectCardProps = {
   name: string;
@@ -14,6 +14,7 @@ type ProjectCardProps = {
   index: number;
   handleDetails: () => void;
 };
+
 export function ProjectCard({
   name,
   description,
@@ -38,6 +39,8 @@ export function ProjectCard({
         (index + 1) % 5 == 0 && "lg:items-center lg:col-[6/8] z-50",
         index < 5 && "lg:row-[1/2]",
         index >= 5 && index < 10 && "lg:row-[2/3]",
+        index >= 10 && index < 15 && "lg:row-[3/4]",
+        index >= 15 && index < 20 && "lg:row-[4/5]",
         className,
       )}
     >
@@ -53,7 +56,7 @@ export function ProjectCard({
       <div
         className={twMerge(
           "flex flex-col items-center space-y-1 lg:items-start",
-          index === projects.length - 1 && "lg:items-center",
+          index === REPO_PER_PAGE - 1 && "lg:items-center",
           (index + 1) % 5 == 0 && "lg:items-center",
         )}
       >
@@ -84,16 +87,22 @@ export function ProjectCard({
           </div>
         </div>
 
-        <div className="flex items-center space-x-1 text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542]">
-          {topics.map((topic, index) => (
-            <span key={topic} className="capitalize text-">
-              {topic}{" "}
-              {index !== projects.length - 1 && (
-                <span className="font-bold">&middot;</span>
-              )}
-            </span>
-          ))}
-        </div>
+        {topics.length > 1 ? (
+          <div className="flex flex-wrap gap-1 text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542]">
+            {topics.map((topic, index) => (
+              <span key={topic} className="capitalize text-xs">
+                {topic}
+                {index !== REPO_PER_PAGE - 1 && (
+                  <span className="font-bold">&middot;</span>
+                )}
+              </span>
+            ))}
+          </div>
+        ) : (
+          <div className="w-full flex items-center justify-center text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542]">
+            <span className="capitalize text-xs">None</span>
+          </div>
+        )}
       </div>
     </div>
   );

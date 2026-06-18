@@ -19,14 +19,4 @@ export type TProjectRank = {
   image: string;
 };
 
-export type TProject = {
-  name: string;
-  description: string;
-  language: string;
-  languageColor: string;
-  stars: number;
-  forks: number;
-  topics: string[];
-  license: string;
-  updatedAt: string;
-};
+
