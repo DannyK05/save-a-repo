@@ -1,20 +1,20 @@
-export type TProjectRankLevel =
+export type TProjectRankLabel =
   | "All"
   | "Street-Level"
   | "Global"
   | "Cosmic"
   | "Multiversal";
 
-export type TProjectRankLabel =
-  | "All"
-  | "Local"
-  | "Enterprise"
-  | "Infrastructure"
-  | "Foundational";
+export type TProjectRankValue =
+  | "all"
+  | "street"
+  | "global"
+  | "cosmic"
+  | "multiversal";
 
 export type TProjectRank = {
-  level: TProjectRankLevel;
   label: TProjectRankLabel;
+  value: TProjectRankValue;
   description: string;
   image: string;
 };

@@ -2,36 +2,36 @@ import type {TProjectRank } from "./types";
 
 export const projectRanks: TProjectRank[] = [
   {
-    level: "All",
     label: "All",
+    value: "all",
     description: "All available open source projects.",
     image: "all",
   },
 
   {
-    level: "Street-Level",
-    label: "Local",
+    label: "Street-Level",
+    value: "street",
     description:
       "Niche tools, personal scripts, or small utility libraries used by individuals.",
     image: "batman",
   },
   {
-    level: "Global",
-    label: "Enterprise",
+    label: "Global",
+    value: "global",
     description:
       "Production-grade tools used by companies worldwide, like Docker or FastAPI.",
     image: "cyborg",
   },
   {
-    level: "Cosmic",
-    label: "Infrastructure",
+    label: "Cosmic",
+    value: "cosmic",
     description:
       "Critical, low-level projects that power the internet itself, like Linux or Kubernetes.",
     image: "superman",
   },
   {
-    level: "Multiversal",
-    label: "Foundational",
+    label: "Multiversal",
+    value: "multiversal",
     description:
       "Omnipresent languages or protocols that define how software exists, like Git, Python, or HTTP.",
     image: "doctor_fate",
