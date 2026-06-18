@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/layouts/header";
+import AppLayout from "@/components/layouts";
+
 
 export const metadata: Metadata = {
   title: "Save A Repo",
@@ -12,11 +13,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en" className={`h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <Header />
-        <>{children}</>
+        <AppLayout>{children}</AppLayout>
       </body>
     </html>
   );
