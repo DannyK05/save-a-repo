@@ -1,4 +1,4 @@
-import type {TProjectRank } from "./types";
+import type { TProjectRank } from "./types";
 
 export const projectRanks: TProjectRank[] = [
   {
@@ -38,4 +38,22 @@ export const projectRanks: TProjectRank[] = [
   },
 ];
 
-
+export const languageFilters = [
+   { label: "All", value: "" },
+  { label: "JavaScript", value: "JavaScript" },
+  { label: "TypeScript", value: "TypeScript" },
+  { label: "Python", value: "Python" },
+  { label: "Java", value: "Java" },
+  { label: "C#", value: "C#" },
+  { label: "C++", value: "C++" },
+  { label: "C", value: "C" },
+  { label: "Go", value: "Go" },
+  { label: "Rust", value: "Rust" },
+  { label: "PHP", value: "PHP" },
+  { label: "Ruby", value: "Ruby" },
+  { label: "Swift", value: "Swift" },
+  { label: "Kotlin", value: "Kotlin" },
+  { label: "Dart", value: "Dart" },
+  { label: "Verilog", value: "Verilog" },
+  { label: "VHDL", value: "VHDL" },
+];

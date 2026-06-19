@@ -89,7 +89,7 @@ export function ProjectCard({
 
         {topics.length > 1 ? (
           <div className="flex flex-wrap gap-1 text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542]">
-            {topics.map((topic, index) => (
+            {topics.slice(0, 3).map((topic, index) => (
               <span key={topic} className="capitalize text-xs">
                 {topic}
                 {index !== REPO_PER_PAGE - 1 && (
@@ -97,6 +97,7 @@ export function ProjectCard({
                 )}
               </span>
             ))}
+            ...
           </div>
         ) : (
           <div className="w-full flex items-center justify-center text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542]">

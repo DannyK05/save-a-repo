@@ -5,7 +5,7 @@ export type TRepo = {
   description: string | null;
   htmlUrl: string;
   language: string | null;
-  stars: number;
+  stargazers_count: number;
   forks: number;
   topics: string[];
   license: {
