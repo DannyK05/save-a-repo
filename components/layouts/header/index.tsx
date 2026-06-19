@@ -1,13 +1,9 @@
 "use client";
-import Link from "next/link";
 
 export default function Header() {
   return (
-    <header className="flex items-center justify-between">
-      <h1>SaveaRepo</h1>
-      <nav>
-        <Link href={"/cities"}>Cities</Link>
-      </nav>
+    <header className="sticky top-0 z-20 flex items-center justify-between">
+      <h1 className="bg-white/50 backdrop-blur-2">SaveaRepo</h1>
     </header>
   );
 }
