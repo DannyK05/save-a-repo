@@ -10,14 +10,19 @@ import type { TProjectRank } from "../types";
 import FilterBox from "./FilterBox";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { EmptyScreen } from "@/components/ui/EmptyScreen";
+import { useLanguageQuery } from "@/lib/hooks/useLanguageQuery";
 
 export function ProjectsGrid() {
   const [activeRank, setActiveRank] = useState<TProjectRank>(projectRanks[0]);
   const [isVisible, setIsVisible] = useState(false);
+  const { languageQuery, handleLanguageChange } = useLanguageQuery();
   const handleIsVisible = () => setIsVisible((prev) => !prev);
   const { data: projects, isLoading } = useFetchRepo({
     page: 1,
-    q: FILTER_QUERY[activeRank.value],
+    q:
+      languageQuery !== ""
+        ? FILTER_QUERY[activeRank.value] + languageQuery
+        : FILTER_QUERY[activeRank.value],
   });
 
   return (
@@ -36,7 +41,7 @@ export function ProjectsGrid() {
           </div>
         ))}
       </div>
-      <FilterBox />
+      <FilterBox handleLanguageChange={handleLanguageChange} />
       <p className="my-3 font-bold text-xl">{activeRank.description}</p>
 
       {isLoading ? (
