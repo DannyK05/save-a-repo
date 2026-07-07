@@ -11,19 +11,26 @@ import FilterBox from "./FilterBox";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { EmptyScreen } from "@/components/ui/EmptyScreen";
 import { useLanguageQuery } from "@/lib/hooks/useLanguageQuery";
+import { Pagination } from "./Pagination";
 
 export function ProjectsGrid() {
   const [activeRank, setActiveRank] = useState<TProjectRank>(projectRanks[0]);
   const [isVisible, setIsVisible] = useState(false);
+  const [page, setPage] = useState(1);
+
   const { languageQuery, handleLanguageChange } = useLanguageQuery();
   const handleIsVisible = () => setIsVisible((prev) => !prev);
   const { data: projects, isLoading } = useFetchRepo({
-    page: 1,
+    page: page,
     q:
       languageQuery !== ""
         ? FILTER_QUERY[activeRank.value] + languageQuery
         : FILTER_QUERY[activeRank.value],
   });
+
+  const handlePageChange = (page: number) => {
+    setPage(page);
+  };
 
   return (
     <section className="relative w-full flex flex-col items-center space-y-2 px-4">
@@ -47,37 +54,51 @@ export function ProjectsGrid() {
       {isLoading ? (
         <LoadingScreen />
       ) : projects?.items && projects?.items.length > 0 ? (
-        <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-8">
-          {projects?.items.map(
-            (
-              {
-                id,
-                name,
-                description,
-                language,
-                stargazers_count,
-                forks,
-                topics,
-                license,
-              },
-              index,
-            ) => (
-              <ProjectCard
-                handleDetails={handleIsVisible}
-                className={index === REPO_PER_PAGE - 1 ? "lg:items-center" : ""}
-                key={id}
-                index={index}
-                name={name}
-                description={description ?? ""}
-                language={language ?? ""}
-                stars={stargazers_count}
-                forks={forks}
-                topics={topics}
-                license={license?.name ?? ""}
-              />
-            ),
-          )}
-        </div>
+        <>
+          <Pagination
+            page={page}
+            totalPages={Math.ceil(projects.total_count / REPO_PER_PAGE)}
+            handlePageChange={handlePageChange}
+          />
+          <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-8">
+            {projects?.items.map(
+              (
+                {
+                  id,
+                  name,
+                  description,
+                  language,
+                  stargazers_count,
+                  forks,
+                  topics,
+                  license,
+                },
+                index,
+              ) => (
+                <ProjectCard
+                  handleDetails={handleIsVisible}
+                  className={
+                    index === REPO_PER_PAGE - 1 ? "lg:items-center" : ""
+                  }
+                  key={id}
+                  index={index}
+                  name={name}
+                  description={description ?? ""}
+                  language={language ?? ""}
+                  stars={stargazers_count}
+                  forks={forks}
+                  topics={topics}
+                  license={license?.name ?? ""}
+                />
+              ),
+            )}
+          </div>
+          <Pagination
+            page={page}
+            totalPages={Math.ceil(projects.total_count / REPO_PER_PAGE)}
+            handlePageChange={handlePageChange}
+          />
+        </>
       ) : (
         <EmptyScreen />
       )}

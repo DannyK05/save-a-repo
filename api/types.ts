@@ -22,4 +22,8 @@ export type TRepo = {
   };
 };
 
-export type TFetchReposResponse = { items: TRepo[]; pageCount: number };
+export type TFetchReposResponse = {
+  items: TRepo[];
+  total_count: number;
+  incomplete_results: number;
+};
