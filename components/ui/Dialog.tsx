@@ -1,7 +1,9 @@
 import { twMerge } from "tailwind-merge";
+import { Button } from "./Button";
 
 type DialogProps = {
   className?: string;
+  title: string;
   isVisible: boolean;
   toggleVisibility: () => void;
   children: React.ReactNode;
@@ -9,20 +11,33 @@ type DialogProps = {
 
 export function Dialog({
   children,
+  title,
   className,
   isVisible,
   toggleVisibility,
 }: DialogProps) {
   return (
     <div
+      onClick={toggleVisibility}
       className={twMerge(
-        "w-screen h-screen fixed z-100 top-0 left-0 flex items-center justify-center bg-black/20 transition-all transition-300 ease-in-out translate-x-full",
+        "w-screen h-screen fixed z-100 top-0 left-0 flex items-center justify-center bg-black/40 transition-all transition-300 ease-in-out translate-x-full",
         isVisible && "translate-x-0",
       )}
     >
-      <div className={twMerge("w-1/2 h-4/5 bg-[#EEC046]", className)}>
-        {children}
-        <button onClick={toggleVisibility}>Close</button>
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={twMerge(
+          "w-1/2 h-4/5 flex flex-col space-y-1 bg-[#EEC046]",
+          className,
+        )}
+      >
+        <div className="w-full flex items-center space-x-8 border px-2 py-1">
+          <Button variant="destructive" onClick={toggleVisibility}>
+            Close
+          </Button>
+          <h2 className="text-3xl">{title}</h2>
+        </div>
+        <div className="w-full h-95 overflow-y-auto">{children}</div>
       </div>
     </div>
   );

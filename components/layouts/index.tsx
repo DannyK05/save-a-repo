@@ -8,8 +8,12 @@ type AppLayoutProps = { children: React.ReactNode };
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
     <>
-      <Header />
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+      <body className="h-full">
+        <Header />
+        <QueryClientProvider client={queryClient}>
+          <main className="w-full h-full">{children}</main>
+        </QueryClientProvider>
+      </body>
     </>
   );
 }

@@ -9,7 +9,7 @@ export function Pagination({
   handlePageChange,
 }: PaginationProps) {
   return (
-    <div className="flex items-center space-x-1 text-xl mt-2">
+    <div className="flex items-center space-x-1 text-xl my-2">
       <span>Page</span>
       <button
         type="button"

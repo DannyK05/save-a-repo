@@ -12,14 +12,16 @@ import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { EmptyScreen } from "@/components/ui/EmptyScreen";
 import { useLanguageQuery } from "@/lib/hooks/useLanguageQuery";
 import { Pagination } from "./Pagination";
+import ProjectDetails from "./ProjectDetails";
+import { TRepo } from "@/api/types";
 
 export function ProjectsGrid() {
   const [activeRank, setActiveRank] = useState<TProjectRank>(projectRanks[0]);
+  const { languageQuery, handleLanguageChange } = useLanguageQuery();
   const [isVisible, setIsVisible] = useState(false);
   const [page, setPage] = useState(1);
+  const [repoDetails, setRepoDetails] = useState<TRepo | null>(null);
 
-  const { languageQuery, handleLanguageChange } = useLanguageQuery();
-  const handleIsVisible = () => setIsVisible((prev) => !prev);
   const { data: projects, isLoading } = useFetchRepo({
     page: page,
     q:
@@ -28,8 +30,18 @@ export function ProjectsGrid() {
         : FILTER_QUERY[activeRank.value],
   });
 
+  const handleIsVisible = () => setIsVisible((prev) => !prev);
+
   const handlePageChange = (page: number) => {
     setPage(page);
+  };
+
+  const handleProjectDetails = (project: TRepo) => {
+    if (!isVisible) {
+      setRepoDetails(project);
+    }
+
+    handleIsVisible();
   };
 
   return (
@@ -61,22 +73,20 @@ export function ProjectsGrid() {
             handlePageChange={handlePageChange}
           />
           <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-8">
-            {projects?.items.map(
-              (
-                {
-                  id,
-                  name,
-                  description,
-                  language,
-                  stargazers_count,
-                  forks,
-                  topics,
-                  license,
-                },
-                index,
-              ) => (
+            {projects?.items.map((project, index) => {
+              const {
+                id,
+                name,
+                description,
+                language,
+                stargazers_count,
+                forks_count,
+                topics,
+                license,
+              } = project;
+              return (
                 <ProjectCard
-                  handleDetails={handleIsVisible}
+                  handleDetails={() => handleProjectDetails(project)}
                   className={
                     index === REPO_PER_PAGE - 1 ? "lg:items-center" : ""
                   }
@@ -86,12 +96,12 @@ export function ProjectsGrid() {
                   description={description ?? ""}
                   language={language ?? ""}
                   stars={stargazers_count}
-                  forks={forks}
+                  forks={forks_count}
                   topics={topics}
                   license={license?.name ?? ""}
                 />
-              ),
-            )}
+              );
+            })}
           </div>
           <Pagination
             page={page}
@@ -103,8 +113,12 @@ export function ProjectsGrid() {
         <EmptyScreen />
       )}
 
-      <Dialog isVisible={isVisible} toggleVisibility={handleIsVisible}>
-        <h1>Broooo</h1>
+      <Dialog
+        title={`Repo #${repoDetails?.id}`}
+        isVisible={isVisible}
+        toggleVisibility={handleIsVisible}
+      >
+        <ProjectDetails project={repoDetails} />
       </Dialog>
     </section>
   );
