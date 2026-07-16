@@ -52,7 +52,7 @@ export function ProjectsGrid() {
             key={rank.value}
             onClick={() => setActiveRank(rank)}
             className={twMerge(
-              "w-40 p-1 border-2 bg-orange-500 font-bold text-center cursor-pointer active:bg-yellow-400 active:scale-90 lg:hover:bg-yellow-400 lg:hover:rotate-6 lg:hover:shadow-lg",
+              "w-2/5 p-1 border-2 bg-orange-500 font-bold text-center cursor-pointer active:bg-yellow-400 active:scale-90 lg:w-40 lg:hover:bg-yellow-400 lg:hover:rotate-6 lg:hover:shadow-lg",
               activeRank == rank && "bg-yellow-400",
             )}
           >

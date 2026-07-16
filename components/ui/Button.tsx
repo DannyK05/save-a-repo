@@ -13,7 +13,7 @@ export function Button({
   return (
     <button
       className={twMerge(
-        "w-30 p-1 border-3 font-bold text-center cursor-pointer active:scale-90 lg:hover:shadow-lg",
+        "w-25 p-1 border-3 font-bold text-sm text-center cursor-pointer active:scale-90 lg:w-30 lg:text-base lg:hover:shadow-lg",
         className,
         variant === "default" && "bg-blue-400 active:bg-red-400",
         variant === "destructive" && "bg-red-400 active:bg-blue-400",

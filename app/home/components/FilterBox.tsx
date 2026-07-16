@@ -35,7 +35,7 @@ export default function FilterBox({ handleLanguageChange }: FilterBoxProps) {
       >
         <div className="flex flex-col items-start gap-1">
           <h4 className="bangers text-xl">Filter by languages:</h4>
-          <div className="flex items-center gap-x-2">
+          <div className="flex flex-wrap items-center gap-x-2">
             {languageFilters.map(({ label, value }) => (
               <label className="flex items-center space-x-1" key={value}>
                 <input

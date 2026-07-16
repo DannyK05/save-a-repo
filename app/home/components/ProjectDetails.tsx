@@ -6,10 +6,10 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
   return (
     <div className="flex flex-col items-center space-y-2 py-1 px-2">
       <h1 className="text-6xl">{project?.name}</h1>
-      <p className="border-b">{project?.description}</p>
+      <p className="border-b text-xs lg:text-sm">{project?.description}</p>
       <p>
-        <span>Default Branch:</span>
-        <span className="bg-orange-400 border-2 rounded-md p-1 ml-2">
+        <span className="text-sm lg:text-base">Default Branch:</span>
+        <span className="bg-orange-400 border-2 rounded-md p-1 ml-2 text-xs lg:text-sm">
           {project?.default_branch}
         </span>
       </p>
@@ -37,8 +37,9 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
           </p>
         </div>
       </div>
+
       <div className="flex flex-col items-center">
-        <p className="uppercase font-semibold">Topics:</p>
+        <p className="uppercase text-sm font-semibold lg:text-base">Topics:</p>
         <div className="w-full flex items-center justify-center flex-wrap gap-y-1 gap-x-2 border-2 rounded-lg  py-1 px-2">
           {project?.topics.map((topic, key) => (
             <span
@@ -55,6 +56,7 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
         {project?.homepage && (
           <Button>
             <Link
+              className="text-sm lg:text-base"
               href={project?.homepage}
               target="_blank"
               rel="noopener noreferer"
@@ -66,6 +68,7 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
         {project?.html_url && (
           <Button>
             <Link
+              className="text-sm lg:text-base"
               href={project?.html_url}
               target="_blank"
               rel="noopener noreferer"

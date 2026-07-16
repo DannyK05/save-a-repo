@@ -27,15 +27,15 @@ export function Dialog({
       <div
         onClick={(e) => e.stopPropagation()}
         className={twMerge(
-          "w-1/2 h-4/5 flex flex-col space-y-1 bg-[#EEC046]",
+          "w-9/10 max-h-7/10 flex flex-col space-y-1 bg-[#EEC046] lg:w-3/5 lg:h-4/5",
           className,
         )}
       >
         <div className="w-full flex items-center space-x-8 border px-2 py-1">
-          <Button variant="destructive" onClick={toggleVisibility}>
+          <Button className="w-20 text-sm lg:text-base" variant="destructive" onClick={toggleVisibility}>
             Close
           </Button>
-          <h2 className="text-3xl">{title}</h2>
+          <h2 className="text-lg lg:text-3xl">{title}</h2>
         </div>
         <div className="w-full h-95 overflow-y-auto">{children}</div>
       </div>
