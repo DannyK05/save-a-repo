@@ -72,7 +72,7 @@ export function ProjectsGrid() {
             totalPages={Math.ceil(projects.total_count / REPO_PER_PAGE)}
             handlePageChange={handlePageChange}
           />
-          <div className="w-full grid grid-cols-1 gap-y-2 lg:grid-cols-8">
+          <div className="w-full grid grid-cols-2 gap-2 lg:grid-cols-8 lg:gap-x-0">
             {projects?.items.map((project, index) => {
               const {
                 id,

@@ -60,10 +60,12 @@ export function ProjectCard({
           (index + 1) % 5 == 0 && "lg:items-center",
         )}
       >
-        <h4 className="text-3xl uppercase">{name}</h4>
-        <p className="text-sm">{description.slice(0, 60) + "..."}</p>
+        <h4 className="text-2xl uppercase lg:text-3xl">{name}</h4>
+        <p className="text-xs lg:text-sm">
+          {description ? description.slice(0, 60) + "..." : "No description"}
+        </p>
 
-        <div className="w-full grid grid-cols-2 text-xs">
+        <div className="w-full grid grid-cols-1 text-xs gap-y-1 lg:grid-cols-2 ">
           <div className="w-full flex flex-col items-start space-y-1">
             <p className="flex items-center space-x-1">
               <span className="p-1 bg-blue-600 rotate-45 border-2"></span>{" "}
@@ -75,20 +77,20 @@ export function ProjectCard({
             </p>
           </div>
 
-          <div className="w-full flex flex-col items-center space-y-1">
+          <div className="w-full flex flex-col items-start space-y-1 lg:items-center">
             <p className="flex items-center space-x-1">
               <span className="p-1 bg-green-300 rotate-45 border-2"></span>
-              <span>{stars} stars</span>
+              <span>{stars.toLocaleString()} stars</span>
             </p>
             <p className="flex items-center space-x-1">
               <span className="p-1 bg-purple-400 rotate-45 border-2"></span>{" "}
-              <span>{forks} forks</span>
+              <span>{forks.toLocaleString()} forks</span>
             </p>
           </div>
         </div>
 
         {topics.length > 1 ? (
-          <div className="flex flex-wrap gap-1 text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542]">
+          <div className="hidden flex-wrap gap-1 text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542] lg:flex">
             {topics.slice(0, 3).map((topic, index) => (
               <span key={topic} className="capitalize text-xs">
                 {topic}
@@ -100,8 +102,8 @@ export function ProjectCard({
             ...
           </div>
         ) : (
-          <div className="w-full flex items-center justify-center text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542]">
-            <span className="capitalize text-xs">None</span>
+          <div className="w-full hidden items-center justify-center text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542] lg:flex">
+            <span className="capitalize text-xs">No Topics</span>
           </div>
         )}
       </div>

@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <main className="overflow-x-hidden">
       <div className="h-80 flex items-center justify-center border-b-4 shadow-sm">
-        <h1 className="text-8xl">Save A Repo Today</h1>
+        <h1 className="text-6xl lg:text-8xl text-center">Save A Repo Today</h1>
       </div>
       <div className="flex flex-col items-center space-y-4 py-4">
         <h1 className="text-3xl underline">Available Projects</h1>
