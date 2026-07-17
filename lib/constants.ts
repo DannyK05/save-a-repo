@@ -1,4 +1,4 @@
-export const REPO_PER_PAGE = 20;
+export const REPO_PER_PAGE = 10;
 export const FILTER_QUERY = {
   all: "",
   street: "stars:<1000 ",
