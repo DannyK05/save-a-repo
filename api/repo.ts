@@ -1,5 +1,7 @@
 import { DEFAULT_QUERY, REPO_PER_PAGE } from "@/lib/constants";
 import { TFetchReposResponse } from "./types";
+import { apiClient } from "./client";
+import { endpoints } from "@/lib/endpoints";
 
 export type FetchRepos = {
   q?: string;
@@ -18,13 +20,6 @@ export async function fetchRepos({
     order: "desc",
   });
 
-  const res = await fetch(
-    `https://api.github.com/search/repositories?${params.toString()}`,
-  );
-
-  if (!res.ok) {
-    throw new Error("Bad response");
-  }
-
-  return res.json();
+  const repos = await apiClient.get(endpoints.query(params));
+  return repos;
 }

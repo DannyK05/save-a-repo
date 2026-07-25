@@ -8,3 +8,5 @@ export const FILTER_QUERY = {
 };
 
 export const DEFAULT_QUERY = " good-first-issues:>10 archived:false";
+
+export const PROXY_LINK = process.env.NEXT_PUBLIC_PROXY_LINK;
