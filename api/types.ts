@@ -50,3 +50,7 @@ export type TFetchReposResponse = {
   total_count: number;
   incomplete_results: number;
 };
+
+export type TLoginUserPayload = {
+  access_token: string;
+};
