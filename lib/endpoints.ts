@@ -1,4 +1,4 @@
 export const endpoints = {
   root: "/",
-  query: (params: URLSearchParams) =>  `/search/repositories?${params.toString()}`,
+  query: (params: URLSearchParams) =>  `/query?${params.toString()}`,
 };
