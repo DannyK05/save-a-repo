@@ -39,7 +39,6 @@ export const projectRanks: TProjectRank[] = [
 ];
 
 export const languageFilters = [
-   { label: "All", value: "" },
   { label: "JavaScript", value: "JavaScript" },
   { label: "TypeScript", value: "TypeScript" },
   { label: "Python", value: "Python" },
@@ -57,3 +56,4 @@ export const languageFilters = [
   { label: "Verilog", value: "Verilog" },
   { label: "VHDL", value: "VHDL" },
 ];
+

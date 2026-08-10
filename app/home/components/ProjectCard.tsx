@@ -31,12 +31,12 @@ export function ProjectCard({
     <div
       onClick={handleDetails}
       className={twMerge(
-        "flex flex-col items-center space-y-1 py-2 px-3 border border-black border-2 cursor-pointer bg-[#EEC046] text-black transition-all duration-300 active:-translate-x-4 lg:hover:ml-1 lg:items-start",
+        "grid grid-rows-2 gap-2 py-2 px-3 border border-black border-2 cursor-pointer bg-[#EEC046] text-black transition-all duration-300 active:-translate-x-4 lg:hover:ml-1 lg:items-start",
         (index + 1) % 5 == 1 && "lg:col-[2/4] z-10",
         (index + 1) % 5 == 2 && "lg:col-[3/5] z-20",
         (index + 1) % 5 == 3 && "lg:col-[4/6] z-30",
         (index + 1) % 5 == 4 && "lg:col-[5/7] z-40",
-        (index + 1) % 5 == 0 && "lg:items-center lg:col-[6/8] z-50",
+        (index + 1) % 5 == 0 && "lg:col-[6/8] z-50",
         index < 5 && "lg:row-[1/2]",
         index >= 5 && index < 10 && "lg:row-[2/3]",
         index >= 10 && index < 15 && "lg:row-[3/4]",
@@ -54,11 +54,7 @@ export function ProjectCard({
         height={200}
       />
       <div
-        className={twMerge(
-          "flex flex-col items-center space-y-1 lg:items-start",
-          index === REPO_PER_PAGE - 1 && "lg:items-center",
-          (index + 1) % 5 == 0 && "lg:items-center",
-        )}
+        className={twMerge("grid grid-rows-3 gap-1 items-center lg:min-h-[170px]")}
       >
         <h4 className="text-2xl uppercase lg:text-3xl">{name}</h4>
         <p className="text-xs lg:text-sm">
@@ -73,7 +69,9 @@ export function ProjectCard({
             </p>
             <p className="flex items-center space-x-1">
               <span className="p-1 bg-red-600 rotate-45 border-2"></span>{" "}
-              <span>{license}</span>
+              <span>
+                {license.length > 20 ? license.slice(0, 17) + "..." : license}
+              </span>
             </p>
           </div>
 
