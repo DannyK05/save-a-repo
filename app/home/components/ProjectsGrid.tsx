@@ -1,33 +1,40 @@
 "use client";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { Dialog } from "@/components/ui/Dialog";
-import { ProjectCard } from "./ProjectCard";
+import { FiXCircle } from "react-icons/fi";
+import { BiSearch } from "react-icons/bi";
 import { useFetchRepo } from "@/lib/hooks/useFetchRepo";
+import { useTopicQuery } from "@/lib/hooks/useTopicQuery";
+import { useLanguageQuery } from "@/lib/hooks/useLanguageQuery";
 import { FILTER_QUERY, REPO_PER_PAGE } from "@/lib/constants";
-import { projectRanks } from "../data";
-import type { TProjectRank } from "../types";
+import { Dialog } from "@/components/ui/Dialog";
+import { TextInput } from "@/components/ui/TextInput";
+import { Button } from "@/components/ui/Button";
+import { ProjectCard } from "./ProjectCard";
+import { Pagination } from "./Pagination";
+import ProjectDetails from "./ProjectDetails";
 import FilterBox from "./FilterBox";
 import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { EmptyScreen } from "@/components/ui/EmptyScreen";
-import { useLanguageQuery } from "@/lib/hooks/useLanguageQuery";
-import { Pagination } from "./Pagination";
-import ProjectDetails from "./ProjectDetails";
-import { TRepo } from "@/api/types";
+import { projectRanks } from "../data";
+import type { TProjectRank } from "../types";
+import type { TRepo } from "@/api/types";
 
 export function ProjectsGrid() {
   const [activeRank, setActiveRank] = useState<TProjectRank>(projectRanks[0]);
   const { languageQuery, handleLanguageChange } = useLanguageQuery();
+  const { topics, topicQuery, addTopic, removeTopic } = useTopicQuery();
+  
+  const [topicValue, setTopicValue] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [page, setPage] = useState(1);
   const [repoDetails, setRepoDetails] = useState<TRepo | null>(null);
 
   const { data: projects, isLoading } = useFetchRepo({
     page: page,
-    q:
-      languageQuery !== ""
-        ? FILTER_QUERY[activeRank.value] + languageQuery
-        : FILTER_QUERY[activeRank.value],
+    q: [FILTER_QUERY[activeRank.value], languageQuery, topicQuery]
+      .filter(Boolean)
+      .join(" "),
   });
 
   const handleIsVisible = () => setIsVisible((prev) => !prev);
@@ -61,6 +68,46 @@ export function ProjectsGrid() {
         ))}
       </div>
       <FilterBox handleLanguageChange={handleLanguageChange} />
+
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          addTopic(topicValue);
+          setTopicValue("");
+        }}
+      >
+        <div className="w-full flex flex-wrap items-center gap-1 pb-1">
+          {topics.map((topic) => (
+            <p
+              onClick={() => removeTopic(topic)}
+              key={topic}
+              className="w-auto flex items-center space-x-1 bg-green-500 border-2 py-1 px-2 cursor-pointer lg:hover:bg-red-500"
+            >
+              <span>{topic}</span>
+              <span>
+                <FiXCircle />
+              </span>
+            </p>
+          ))}
+        </div>
+        <label
+          htmlFor="search"
+          className="flex items-center space-x-2 px-3 py-2 border-3 bg-orange-500"
+        >
+          <BiSearch size={20} />
+          <TextInput
+            id="search"
+            value={topicValue}
+            onChange={(e) => setTopicValue(e.target.value)}
+            type="search"
+            placeholder="Search for topics..."
+          />
+          <Button className="w-auto" type="submit">
+            Search
+          </Button>
+        </label>
+      </form>
+
       <p className="my-3 font-bold text-xl">{activeRank.description}</p>
 
       {isLoading ? (
@@ -87,9 +134,6 @@ export function ProjectsGrid() {
               return (
                 <ProjectCard
                   handleDetails={() => handleProjectDetails(project)}
-                  className={
-                    index === REPO_PER_PAGE - 1 ? "lg:items-center" : ""
-                  }
                   key={id}
                   index={index}
                   name={name}
@@ -114,6 +158,7 @@ export function ProjectsGrid() {
       )}
 
       <Dialog
+        className="border-3"
         title={`Repo #${repoDetails?.id}`}
         isVisible={isVisible}
         toggleVisibility={handleIsVisible}
