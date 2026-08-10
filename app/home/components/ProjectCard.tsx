@@ -31,7 +31,7 @@ export function ProjectCard({
     <div
       onClick={handleDetails}
       className={twMerge(
-        "grid grid-rows-2 gap-2 py-2 px-3 border border-black border-2 cursor-pointer bg-[#EEC046] text-black transition-all duration-300 active:-translate-x-4 lg:hover:ml-1 lg:items-start",
+        "grid grid-cols-1 auto-rows-auto gap-2 py-2 px-3 border border-black border-2 cursor-pointer bg-[#EEC046] text-black transition-all duration-300 active:-translate-x-4 lg:hover:ml-1 lg:items-start",
         (index + 1) % 5 == 1 && "lg:col-[2/4] z-10",
         (index + 1) % 5 == 2 && "lg:col-[3/5] z-20",
         (index + 1) % 5 == 3 && "lg:col-[4/6] z-30",
@@ -54,7 +54,9 @@ export function ProjectCard({
         height={200}
       />
       <div
-        className={twMerge("grid grid-rows-3 gap-1 items-center lg:min-h-[170px]")}
+        className={twMerge(
+          "grid grid-cols-1 auto-rows-auto gap-1 items-center lg:min-h-[170px]",
+        )}
       >
         <h4 className="text-2xl uppercase lg:text-3xl">{name}</h4>
         <p className="text-xs lg:text-sm">

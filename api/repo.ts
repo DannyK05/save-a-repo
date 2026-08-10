@@ -16,8 +16,6 @@ export async function fetchRepos({
     q: q ? q + DEFAULT_QUERY : DEFAULT_QUERY,
     per_page: REPO_PER_PAGE.toString(),
     page: page.toString(),
-    sort: "stars",
-    order: "desc",
   });
 
   const repos = await apiClient.get(endpoints.query(params));

@@ -4,7 +4,7 @@ export function useTopicQuery() {
   const [topics, setTopic] = useState<string[]>([]);
 
   const addTopic = (topic: string) => {
-    if (topics.includes(topic)) {
+    if (topics.includes(topic) || topic.trim() === "") {
       return;
     }
     setTopic((prev) => [...prev, topic]);
