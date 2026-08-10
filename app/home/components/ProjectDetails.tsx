@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function ProjectDetails({ project }: { project: TRepo | null }) {
   return (
-    <div className="flex flex-col items-center space-y-2 py-1 px-2">
+    <div className="flex flex-col items-center space-y-2 pt-3 pb-4 px-2">
       <h1 className="text-6xl">{project?.name}</h1>
       <p className="border-b text-xs lg:text-sm">{project?.description}</p>
       <p>
@@ -14,7 +14,7 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
         </span>
       </p>
       {/* New fields to consider: Last pushed, creator */}
-      <div className="w-full grid grid-cols-2 text-sm">
+      <div className="w-full grid grid-cols-2 text-sm lg:w-1/2">
         <div className="w-full flex flex-col items-start space-y-1">
           <p className="flex items-center space-x-1">
             <span className="p-1 bg-blue-600 rotate-45 border-2"></span>
@@ -38,19 +38,23 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
         </div>
       </div>
 
-      <div className="flex flex-col items-center">
-        <p className="uppercase text-sm font-semibold lg:text-base">Topics:</p>
-        <div className="w-full flex items-center justify-center flex-wrap gap-y-1 gap-x-2 border-2 rounded-lg  py-1 px-2">
-          {project?.topics.map((topic, key) => (
-            <span
-              key={key}
-              className="p-1 rounded-lg border-2 text-xs bg-green-400"
-            >
-              {topic}
-            </span>
-          ))}
+      {project?.topics && project?.topics.length > 0 && (
+        <div className="flex flex-col items-center">
+          <p className="uppercase text-sm font-semibold lg:text-base">
+            Topics:
+          </p>
+          <div className="w-full flex items-center justify-center flex-wrap gap-y-1 gap-x-2 border-2 rounded-lg  py-1 px-2">
+            {project?.topics.map((topic, key) => (
+              <span
+                key={key}
+                className="p-1 rounded-lg border-2 text-xs bg-green-400"
+              >
+                {topic}
+              </span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex items-center flex-wrap gap-1 pt-3">
         {project?.homepage && (
