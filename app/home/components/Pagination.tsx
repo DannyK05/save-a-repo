@@ -48,7 +48,7 @@ export function Pagination({
       >
         {">"}
       </button>
-      <span>of {totalPages}</span>
+      <span>of {totalPages.toLocaleString()}</span>
     </div>
   );
 }

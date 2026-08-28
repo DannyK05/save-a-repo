@@ -19,7 +19,7 @@ export const projectRanks: TProjectRank[] = [
     label: "Global",
     value: "global",
     description:
-      "Production-grade tools used by companies worldwide, like Docker or FastAPI.",
+      "Production-grade tools used by companies worldwide.",
     image: "cyborg",
   },
   {

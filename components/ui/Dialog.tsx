@@ -31,7 +31,7 @@ export function Dialog({
           className,
         )}
       >
-        <div className="w-full flex items-center space-x-8 border px-2 py-1">
+        <div className="w-full flex items-center space-x-8 border-b px-2 py-1">
           <Button className="w-20 text-sm lg:text-base" variant="destructive" onClick={toggleVisibility}>
             Close
           </Button>
