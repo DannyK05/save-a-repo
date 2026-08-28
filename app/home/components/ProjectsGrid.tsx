@@ -24,7 +24,8 @@ export function ProjectsGrid() {
   const [activeRank, setActiveRank] = useState<TProjectRank>(projectRanks[0]);
   const { languageQuery, handleLanguageChange } = useLanguageQuery();
   const { topics, topicQuery, addTopic, removeTopic } = useTopicQuery();
-  
+  const [trainingWheels, setTrainingWheels] = useState<"on" | "off">("off");
+
   const [topicValue, setTopicValue] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [page, setPage] = useState(1);
@@ -32,6 +33,7 @@ export function ProjectsGrid() {
 
   const { data: projects, isLoading } = useFetchRepo({
     page: page,
+    trainingWheels: trainingWheels,
     q: [FILTER_QUERY[activeRank.value], languageQuery, topicQuery]
       .filter(Boolean)
       .join(" "),
@@ -51,6 +53,14 @@ export function ProjectsGrid() {
     handleIsVisible();
   };
 
+  const toggleTrainingWheels = (e: "on" | "off") => {
+    if (trainingWheels === "off") {
+      setTrainingWheels(e);
+    } else {
+      setTrainingWheels("off");
+    }
+  };
+
   return (
     <section className="relative w-full flex flex-col items-center space-y-2 px-4">
       <div className="flex items-center gap-3 flex-wrap">
@@ -67,7 +77,10 @@ export function ProjectsGrid() {
           </div>
         ))}
       </div>
-      <FilterBox handleLanguageChange={handleLanguageChange} />
+      <FilterBox
+        handleLanguageChange={handleLanguageChange}
+        toggleTrainingWheels={toggleTrainingWheels}
+      />
 
       <form
         onSubmit={(e) => {

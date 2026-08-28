@@ -2,9 +2,15 @@ import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { languageFilters } from "../data";
 
-type FilterBoxProps = { handleLanguageChange: (e: string) => void };
+type FilterBoxProps = {
+  handleLanguageChange: (e: string) => void;
+  toggleTrainingWheels: (e: "on" | "off") => void;
+};
 
-export default function FilterBox({ handleLanguageChange }: FilterBoxProps) {
+export default function FilterBox({
+  handleLanguageChange,
+  toggleTrainingWheels,
+}: FilterBoxProps) {
   const [openFilters, setOpenFilters] = useState(false);
   const handleOpenFilters = () => {
     setOpenFilters((prev) => !prev);
@@ -29,7 +35,7 @@ export default function FilterBox({ handleLanguageChange }: FilterBoxProps) {
 
       <div
         className={twMerge(
-          "flex-col items-center space-y-2 hidden",
+          "flex-col items-start space-y-2 hidden",
           openFilters && "flex",
         )}
       >
@@ -51,6 +57,19 @@ export default function FilterBox({ handleLanguageChange }: FilterBoxProps) {
             ))}
           </div>
         </div>
+        <label htmlFor="trainingWheels" className="flex items-center space-x-1">
+          <input
+            id="trainingWheels"
+            value={"on"}
+            name="trainingWheels"
+            type="checkbox"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              toggleTrainingWheels(e.target.value as "on")
+            }
+          />
+          Training wheels{" "}
+          {"(This adds a filter that shows repos with good first issues)"}
+        </label>
       </div>
     </aside>
   );
