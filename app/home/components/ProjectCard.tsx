@@ -27,6 +27,28 @@ export function ProjectCard({
   index,
   handleDetails,
 }: ProjectCardProps) {
+  const shortenTopics = (topics: string[]): string[] => {
+    let count = 40;
+    let lastIndex;
+    const result = [];
+    for (let i = 0; i < topics.length; i++) {
+      if (topics[i].length > count - 3) {
+        lastIndex = i;
+        break;
+      }
+      result.push(topics[i]);
+      count -= topics[i].length;
+    }
+
+    if (lastIndex !== undefined) {
+      result.push(topics[lastIndex].slice(0, count - 3 - 1) + "...");
+    }
+
+    return result;
+  };
+
+  const shortenedTopics = shortenTopics(topics);
+
   return (
     <div
       onClick={handleDetails}
@@ -60,7 +82,11 @@ export function ProjectCard({
       >
         <h4 className="text-2xl uppercase lg:text-3xl">{name}</h4>
         <p className="text-xs lg:text-sm">
-          {description ? description.slice(0, 60) + "..." : "No description"}
+          {description
+            ? description.length > 60
+              ? description.slice(0, 60) + " ..."
+              : description
+            : "No description"}
         </p>
 
         <div className="w-full grid grid-cols-1 text-xs gap-y-1 lg:grid-cols-2 ">
@@ -70,9 +96,13 @@ export function ProjectCard({
               <span>{language}</span>
             </p>
             <p className="flex items-center space-x-1">
-              <span className="p-1 bg-red-600 rotate-45 border-2"></span>{" "}
+              <span className="p-1 bg-purple-600 rotate-45 border-2"></span>{" "}
               <span>
-                {license.length > 20 ? license.slice(0, 17) + "..." : license}
+                {license
+                  ? license.length > 20
+                    ? license.slice(0, 17) + "..."
+                    : license
+                  : "No license"}
               </span>
             </p>
           </div>
@@ -91,15 +121,16 @@ export function ProjectCard({
 
         {topics.length > 1 ? (
           <div className="hidden flex-wrap gap-1 text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542] lg:flex">
-            {topics.slice(0, 3).map((topic, index) => (
-              <span key={topic} className="capitalize text-xs">
-                {topic}
-                {index !== REPO_PER_PAGE - 1 && (
-                  <span className="font-bold">&middot;</span>
-                )}
-              </span>
-            ))}
-            ...
+            {shortenedTopics.map((topic, index) => {
+              return (
+                <span key={topic} className="capitalize text-xs">
+                  {topic}
+                  {index !== shortenedTopics.length - 1 && (
+                    <span className="font-bold">&middot;</span>
+                  )}
+                </span>
+              );
+            })}
           </div>
         ) : (
           <div className="w-full hidden items-center justify-center text-xs border border-black border-2 rounded-lg p-1 text-[#DF5045] bg-[#FAC542] lg:flex">

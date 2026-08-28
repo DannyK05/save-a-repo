@@ -21,8 +21,15 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
             <span>{project?.language}</span>
           </p>
           <p className="flex items-center space-x-1">
-            <span className="p-1 bg-red-600 rotate-45 border-2"></span>
-            <span>{project?.license?.name}</span>
+            <span className="p-1 bg-purple-600 rotate-45 border-2"></span>
+            <span>
+              {" "}
+              {project?.license?.name
+                ? project?.license?.name.length > 20
+                  ? project?.license?.name.slice(0, 17) + "..."
+                  : project?.license?.name
+                : "No license"}
+            </span>
           </p>
         </div>
 
@@ -32,7 +39,7 @@ export default function ProjectDetails({ project }: { project: TRepo | null }) {
             <span>{project?.stargazers_count.toLocaleString()} stars</span>
           </p>
           <p className="flex items-center space-x-1">
-            <span className="p-1 bg-purple-400 rotate-45 border-2"></span>
+            <span className="p-1 bg-red-400 rotate-45 border-2"></span>
             <span>{project?.open_issues_count.toLocaleString()} issues</span>
           </p>
         </div>

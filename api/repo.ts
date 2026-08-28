@@ -15,7 +15,7 @@ export async function fetchRepos({
   trainingWheels,
 }: FetchRepos): Promise<TFetchReposResponse> {
   const params = new URLSearchParams({
-    q: q ? q + DEFAULT_QUERY : DEFAULT_QUERY,
+    q: q ? `${q} ${DEFAULT_QUERY}` : DEFAULT_QUERY,
     trainingWheels: trainingWheels,
     per_page: REPO_PER_PAGE.toString(),
     page: page.toString(),
